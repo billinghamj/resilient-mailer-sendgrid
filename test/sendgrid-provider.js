@@ -44,8 +44,6 @@ test('invalid message returns error', function (t) {
 });
 
 test('handles api errors correctly', function (t) {
-	var domain = 'example.com';
-
 	var message = {
 		from: 'no-reply@example.com',
 		to: ['user@example.net', 'user@example.org'],
@@ -59,9 +57,9 @@ test('handles api errors correctly', function (t) {
 
 	t.plan(4);
 
-	var server = setupTestServer(t, domain,
+	var server = setupTestServer(t,
 		function (request, response, body) {
-			var error = JSON.stringify({ message: 'generic fail' });
+			var error = JSON.stringify({ message: 'error', 'errors': ['asdf'] });
 
 			response.writeHead(503, { 'Content-Length': error.length });
 			response.write(error);
@@ -75,7 +73,7 @@ test('handles api errors correctly', function (t) {
 				apiPort: addr.port
 			};
 
-			var provider = new SendgridProvider(domain, 'key', options);
+			var provider = new SendgridProvider('user', 'key', options);
 
 			provider.mail(message, function (error) {
 				t.notEqual(typeof error, 'undefined');
@@ -87,8 +85,6 @@ test('handles api errors correctly', function (t) {
 });
 
 test('check lack of callback', function (t) {
-	var domain = 'example.com';
-
 	var message = {
 		from: 'no-reply@example.com',
 		to: ['user@example.net', 'user@example.org'],
@@ -102,9 +98,9 @@ test('check lack of callback', function (t) {
 
 	t.plan(2);
 
-	var server = setupTestServer(t, domain,
+	var server = setupTestServer(t,
 		function (request, response, body) {
-			var error = JSON.stringify({ message: 'generic fail' });
+			var error = JSON.stringify({ message: 'error', 'errors': ['asdf'] });
 
 			response.writeHead(503, { 'Content-Length': error.length });
 			response.write(error);
@@ -120,17 +116,17 @@ test('check lack of callback', function (t) {
 				apiPort: addr.port
 			};
 
-			var provider = new SendgridProvider(domain, 'key', options);
+			var provider = new SendgridProvider('user', 'key', options);
 
 			provider.mail(message);
 		});
 });
 
 // will generate 2 assertions
-function setupTestServer(t, domain, handler, callback) {
+function setupTestServer(t, handler, callback) {
 	var server = http.createServer(function (request, response) {
 		t.equal(request.method, 'POST');
-		t.equal(request.url, '/v2/' + domain + '/messages');
+		t.equal(request.url, '/api/mail.send.json');
 
 		body = '';
 
