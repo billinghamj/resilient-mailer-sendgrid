@@ -58,7 +58,7 @@ test('handles api errors correctly', function (t) {
 	t.plan(4);
 
 	var server = setupTestServer(t,
-		function (request, response, body) {
+		function (request, response) {
 			var error = JSON.stringify({ message: 'error', 'errors': ['asdf'] });
 
 			response.writeHead(503, { 'Content-Length': error.length });
@@ -99,7 +99,7 @@ test('check lack of callback', function (t) {
 	t.plan(2);
 
 	var server = setupTestServer(t,
-		function (request, response, body) {
+		function (request, response) {
 			var error = JSON.stringify({ message: 'error', 'errors': ['asdf'] });
 
 			response.writeHead(503, { 'Content-Length': error.length });
@@ -128,15 +128,7 @@ function setupTestServer(t, handler, callback) {
 		t.equal(request.method, 'POST');
 		t.equal(request.url, '/api/mail.send.json');
 
-		body = '';
-
-		request.on('data', function (chunk) {
-			body += chunk;
-		});
-
-		request.on('end', function () {
-			handler(request, response, body);
-		});
+		handler(request, response);
 	});
 
 	server.listen(function () {
