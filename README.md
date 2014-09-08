@@ -1,11 +1,11 @@
 # resilient-mailer-sendgrid
 
 `resilient-mailer-sendgrid` implements SendGrid as an email provider for
-[`resilient-mailer`](https://github.com/billinghamj/resilient-mailer).
+[`resilient-mailer`](//github.com/billinghamj/resilient-mailer).
 
-[![NPM Version](https://img.shields.io/npm/v/resilient-mailer-sendgrid.svg?style=flat)](https://www.npmjs.org/package/resilient-mailer-sendgrid)
-[![Build Status](https://img.shields.io/travis/billinghamj/resilient-mailer-sendgrid.svg?style=flat)](https://travis-ci.org/billinghamj/resilient-mailer-sendgrid)
-[![Coverage Status](https://img.shields.io/coveralls/billinghamj/resilient-mailer-sendgrid.svg?style=flat)](https://coveralls.io/r/billinghamj/resilient-mailer-sendgrid)
+[![NPM Version](https://img.shields.io/npm/v/resilient-mailer-sendgrid.svg?style=flat)](//www.npmjs.org/package/resilient-mailer-sendgrid)
+[![Build Status](https://img.shields.io/travis/billinghamj/resilient-mailer-sendgrid.svg?style=flat)](//travis-ci.org/billinghamj/resilient-mailer-sendgrid)
+[![Coverage Status](https://img.shields.io/coveralls/billinghamj/resilient-mailer-sendgrid.svg?style=flat)](//coveralls.io/r/billinghamj/resilient-mailer-sendgrid)
 
 ```js
 var SendgridProvider = require('resilient-mailer-sendgrid');
@@ -68,7 +68,7 @@ sendgrid.send(message, function (error) {
 ```
 
 To see everything available in the `message` object, refer to
-[resilient-mailer](https://github.com/billinghamj/resilient-mailer).
+[resilient-mailer](//github.com/billinghamj/resilient-mailer).
 
 ## Testing
 
