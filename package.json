@@ -1,12 +1,12 @@
 {
 	"name": "resilient-mailer-sendgrid",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "SendGrid provider implementation for resilient-mailer",
 
 	"license": "MIT",
 	"author": "James Billingham <james@jamesbillingham.com> (http://jamesbillingham.com)",
 
-	"main": "lib/mailgun-provider.js",
+	"main": "lib/sendgrid-provider.js",
 
 	"repository": {
 		"type": "git",
