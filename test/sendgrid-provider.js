@@ -19,6 +19,18 @@ test('correct types after initialization', function (t) {
 	t.end();
 });
 
+test('api port is chosen correctly', function (t) {
+	var prov1 = new SendgridProvider('user', 'key');
+	var prov2 = new SendgridProvider('user', 'key', { apiSecure: false });
+	var prov3 = new SendgridProvider('user', 'key', { apiSecure: true });
+
+	t.equal(prov1.options.apiPort, 443);
+	t.equal(prov2.options.apiPort, 80);
+	t.equal(prov3.options.apiPort, 443);
+
+	t.end();
+});
+
 test('invalid initialization causes exception', function (t) {
 	t.throws(function () { new SendgridProvider(); });
 	t.throws(function () { new SendgridProvider(0); });
@@ -39,9 +51,9 @@ test('invalid message returns error', function (t) {
 
 	t.plan(3);
 
-	provider.mail(null, function (error) { t.notEqual(typeof error, 'undefined'); });
-	provider.mail({}, function (error) { t.notEqual(typeof error, 'undefined'); });
-	provider.mail({to:['']}, function (error) { t.notEqual(typeof error, 'undefined'); });
+	provider.mail(null, function (error) { t.equal(error.message, 'Invalid parameters'); });
+	provider.mail({}, function (error) { t.equal(error.message, 'Invalid parameters'); });
+	provider.mail({to:['']}, function (error) { t.equal(error.message, 'Invalid parameters'); });
 });
 
 test('api used correctly when successful', function (t) {
